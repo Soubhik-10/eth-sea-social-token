@@ -20,11 +20,7 @@ const Shop: React.FC = () => {
       <SideMenu />
       <div className="flex-grow flex items-center justify-center">
         <Routes>
-<<<<<<< HEAD
           <Route path="buy-nft" element={<BuyNFT />} />
-=======
-           <Route path="buy-nft" element={<BuyNFT />} /> 
->>>>>>> c2ead6d947f84553de33959f3796edfcff04e0fc
           <Route path="my-nft" element={<MyNFT />} />
           <Route path="create-nft" element={<CreateNFT />} />
         </Routes>

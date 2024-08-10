@@ -1,4 +1,3 @@
-
 import React, { useContext, createContext, ReactNode } from "react"
 import {
   createThirdwebClient,
@@ -34,9 +33,14 @@ const client: ThirdwebClient = createThirdwebClient({
   clientId: import.meta.env.VITE_CLIENT_ID as string,
 })
 const wallet = createWallet("io.metamask")
-const account = await wallet.connect({
-  client,
-})
+let account: any
+const a = async () => {
+  const acc = await wallet.connect({
+    client,
+  })
+  account = acc
+}
+a()
 interface socialTokenContextProviderProps {
   children: ReactNode
 }
@@ -61,7 +65,7 @@ export const SocialTokenContextProvider = ({
     chain: defineChain(3441006),
     address: import.meta.env.VITE_CONTRACT_ADDRESS_3 as string,
   })
-  
+
   return (
     <SocialTokenContext.Provider
       value={{

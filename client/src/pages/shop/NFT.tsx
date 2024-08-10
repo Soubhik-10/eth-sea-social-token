@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import ICS from "../../ICS.jpeg"
-import { prepareContractCall, sendTransaction } from "thirdweb"
+import { prepareContractCall, readContract, sendTransaction } from "thirdweb"
 import { useSocialTokenContext } from "../../context/context"
 import { download } from "thirdweb/storage"
 
@@ -29,14 +29,20 @@ const NFT: React.FC<NFTProps> = ({
   useEffect(() => {
     const fetchImage = async () => {
       // Fetch the profile picture from IPFS
+      const data = await readContract({
+        contract: MarketContract,
+        method: "function tokenURI(uint256 tokenId) view returns (string)",
+        params: [BigInt(tokenId)],
+      })
       const response = await download({
         client,
-        uri: `${uri}`, // Ensure IPFS URI format
+        uri: `${data}`, // Ensure IPFS URI format
       })
-
+      console.log(uri)
       // Convert the response to a Blob and create a URL for the image
       const fileBlob = await response.blob()
       const fileUrl = URL.createObjectURL(fileBlob)
+      console.log(fileUrl)
       setImage(fileUrl)
 
       // Fetch the profile picture from IPFS
@@ -110,7 +116,7 @@ const NFT: React.FC<NFTProps> = ({
       <div className="flex gap-2 items-center justify-between">
         <div className="flex flex-row">
           <h3 className="text-xl font-bold">Price:</h3>
-          <p className="text-xl font-bold text-blue-400">{price} ICS</p>
+          <p className="text-xl font-bold text-blue-400">{price / 1e18} ICS</p>
         </div>
         <button
           className="buy-now-button"

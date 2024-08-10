@@ -51,6 +51,7 @@ const BuyNFT: React.FC = () => {
             creatorName={nft.userData.name}
             profilePic={`${nft.userData.image_hash}`}
             creatorAddress={nft.owner}
+            sellerAddress={nft.seller}
             price={Number(nft.price)}
             uri={`${nft.userData.image_hash}`}
             tokenId={Number(nft.tokenId)}

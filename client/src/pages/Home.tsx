@@ -7,10 +7,10 @@ import { readContract } from "thirdweb"
 const Home = () => {
   const [registered, setRegistered] = useState<boolean | null>(null)
   const { SocialContract } = useSocialTokenContext()
-  const activeAccount = useActiveAccount()
-  const address = activeAccount?.address
-  const navigate = useNavigate() // Use `useNavigate` hook instead of `Navigate` component
-
+  const address = useActiveAccount()?.address
+  if (!registered) {
+    return <Navigate to="/login" />
+  }
   useEffect(() => {
     const checkUserRegistration = async () => {
       if (address) {

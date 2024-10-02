@@ -61,6 +61,9 @@ const NFT: React.FC<NFTProps> = ({
   const approve = async (price: number) => {
     const spender = import.meta.env.VITE_CONTRACT_ADDRESS_3
     if (spender) {
+      const wallet = createWallet("io.metamask")
+      const account = await wallet.connect({ client })
+
       const transaction = await prepareContractCall({
         contract: ICSContract,
         method:
